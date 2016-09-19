@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 use DB;
 
+use PDF;
+
 class ReservaController extends Controller
 {
     //DEfinicion de $array_plazas_disponibles. En cada posición del array se indica el nº de plazas dsiponibles
@@ -292,10 +294,23 @@ class ReservaController extends Controller
         ->select('reservas.*', 'clientes.*', 'viajes.*')
         ->get();
 
+        //Método 1
+        view()->share('reservas',$reservas);
+
+        //$pdf = PDF::loadView('reserva/index');
+        //return $pdf->download('reserva/index');
+
+        //Método 2
+        $view =  \View::make('reserva.index', $reservas)->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('index');
+
+
         //$viajes = DB::table('viajes')->join('reservas', 'viajes.viaje_id', '=', 'reservas.viaje_id')->select('')->get();
 
         // Render View
-        return view('reserva/index', ['reservas' => $reservas]);
+        //return view('reserva/index', ['reservas' => $reservas]);
         //return view('home');
 
     }
