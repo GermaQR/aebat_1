@@ -4,9 +4,9 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gestión de Reservas</title>
-<link rel="stylesheet" href="/css/foundation.css">
-<link rel="stylesheet" href="/css/app.css">
-<link rel="stylesheet" href="/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/foundation.css">
+<link rel="stylesheet" type="text/css" href="/css/app.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
   
 </head>
 <body>

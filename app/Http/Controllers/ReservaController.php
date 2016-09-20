@@ -246,7 +246,7 @@ class ReservaController extends Controller
         }
 
 
-        DB::table('reservas')->insert(
+        $reserva_id = DB::table('reservas')->insertGetId(
             [
 
                 'parada_subida' => $parada_subida_2,
@@ -267,12 +267,15 @@ class ReservaController extends Controller
         //return \Redirect::route('reserva.index');
 
         //Redirigir a vista 'message.blade.php' con mensaje para testeo de la app.
-        
+
+        //$message = strval($id_viaje_existente);
+
+        //return view('reserva/message', ['mensaje' => $message]);
 
 
-        $message = strval($id_viaje_existente);
+        //return \Redirect::route('reserva.show')->with('reserva_id', $reserva_id);
 
-        return view('reserva/message', ['mensaje' => $message]);
+        return redirect()->action('ReservaController@show', ['id' => $reserva_id]);
 
     }
 
@@ -288,31 +291,53 @@ class ReservaController extends Controller
         
         // Busca todas las reservas
         $reservas = DB::table('reservas')
-        ->where('reservas.cliente_id', '=', $id)
+        ->where('reservas.id', '=', $id)
+        ->join('clientes', 'reservas.cliente_id', '=', 'clientes.id')
+        ->join('viajes', 'reservas.viaje_id', '=', 'viajes.id')
+        ->select('reservas.*', 'clientes.*', 'viajes.*')
+        ->get();
+
+        //$viajes = DB::table('viajes')->join('reservas', 'viajes.viaje_id', '=', 'reservas.viaje_id')->select('')->get();
+
+        //Render View
+        return view('reserva/show', ['reservas' => $reservas, 'reserva_id' => $id]);
+        
+        //return view('reserva/ticket', ['reservas' => $reservas]);
+
+    }
+
+
+    /**
+     * Imprime reserva en formato PDF
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function imprimir($id)
+    {
+        
+        // ->select('reservas.*', 'clientes.nombre', 'clientes.apellido', 'clientes.alojamiento', 'clientes.numero_habitacion', 'viajes.dia', 'viajes.salida', 'viajes.sentido', 'viajes.array_plazas_disponibles')
+
+        $reservas = DB::table('reservas')
+        ->where('reservas.id', '=', $id)
         ->join('clientes', 'reservas.cliente_id', '=', 'clientes.id')
         ->join('viajes', 'reservas.viaje_id', '=', 'viajes.id')
         ->select('reservas.*', 'clientes.*', 'viajes.*')
         ->get();
 
         //Método 1
-        view()->share('reservas',$reservas);
+        //view()->share('reservas',$reservas);
 
         //$pdf = PDF::loadView('reserva/index');
         //return $pdf->download('reserva/index');
 
         //Método 2
-        $view =  \View::make('reserva.index', $reservas)->render();
+        $view =  \View::make('reserva.ticket', compact('reservas'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('index');
+        return $pdf->stream('ticket');
 
-
-        //$viajes = DB::table('viajes')->join('reservas', 'viajes.viaje_id', '=', 'reservas.viaje_id')->select('')->get();
-
-        // Render View
-        //return view('reserva/index', ['reservas' => $reservas]);
-        //return view('home');
-
+        return view('reserva/ticket', ['reservas' => $reservas]);
     }
 
     /**

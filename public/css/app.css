@@ -1,21 +1,10 @@
-.main{
-	padding:20px;
+.ticket-content p {
+display: inline;
+width: 500px;
 }
 
-.button-upload{
-	color:#fff !important;
-}
-
-.main-img{
-	display:block;
-	width:60%;
-	margin:auto;
-	padding:30px;
-
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+.linea-ticket {
+	padding: 10px 0 10px 0;
+	font-size: 20px;
 }
 

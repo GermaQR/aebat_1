@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Route::resource('reserva', 'ReservaController');
 Route::get('reserva/show/{id}', 'ReservaController@show');
+Route::get('reserva/imprimir/{id}', 'ReservaController@imprimir');
+
 //Route::get('reserva/show/{id}',array('as'=>'htmltopdfview','uses'=>'ReservaController@show'));
 
 // Rutas de login y autenticación
