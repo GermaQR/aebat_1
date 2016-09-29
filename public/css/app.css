@@ -1,10 +1,55 @@
-.ticket-content p {
-display: inline;
-width: 500px;
+.size-24 {
+	font-size: 24px;
 }
 
-.linea-ticket {
-	padding: 10px 0 10px 0;
-	font-size: 20px;
+.print-icon{
+	display: block;
+	width: 19px;
+	margin: auto;
+}
+
+body {
+	background-image: url(/css/images/playa_del_ingles.jpg);
+	background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.callout.primary {
+	background-color: #88cc88;
+}
+
+.off-canvas {
+	background-color: #55aa55;
+}
+
+.off-canvas-content {
+	background-color: rgba(255,255,255,0.7);
+
+}
+
+.logo {
+	display: block;
+	width: 120px;
+	margin: 20px auto 0 auto;
+}
+
+a {
+	color: #CCFF99;
+}
+
+.print-icon {
+
+	color: #2199e8;
+}
+
+table tbody tr:nth-child(2n) {
+	background-color: #CCFF99;
+}
+
+h1, h2, h3, h4, h5, p, a {
+	font-family: sans-serif;
+	font-weight: 500;
 }
 

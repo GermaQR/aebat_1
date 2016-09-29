@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gestión de Reservas</title>
 <link rel="stylesheet" type="text/css" href="/css/foundation.css">
+<link rel="stylesheet" type="text/css" href="/css/foundation-icons.css">
 <link rel="stylesheet" type="text/css" href="/css/app.css">
 <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+
   
 </head>
 <body>
@@ -14,6 +16,9 @@
 <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
 <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
 <div class="row column">
+
+	<img class="logo" src="/css/images/bus-aebat-2.png" height="120" width="120">
+
 <br>
 
 <h5>Menu Principal</h5>
@@ -26,13 +31,14 @@
 		<li><a href="/reserva">Ver Reservas</a></li>
 	@endif
 	@if(Auth::guest())
-		<li><a href="/auth/login">Login</a></li>
+		<li><a href="/auth/login">Acceso</a></li>
 	@endif
 	@if(Auth::check() && (Auth::user()->name == 'admin'))
 		<li><a href="/auth/register">Registro</a></li>
 	@endif
 	@if(!Auth::guest())	
-		<li><a href="/auth/logout">Logout</a></li>
+		<li><a href="/viaje/buscar">Buscar Ruta</a></li>
+		<li><a href="/auth/logout">Salir</a></li>
 	@endif	
 </ul>
 </div>

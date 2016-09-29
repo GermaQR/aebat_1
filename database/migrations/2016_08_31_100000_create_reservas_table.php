@@ -22,7 +22,7 @@ class CreateReservasTable extends Migration
         });
 
 
-        Schema::table('reservas', function ($table) {
+        Schema::table('reservas', function (Blueprint $table) {
     
             $table->integer('viaje_id')->unsigned();
             $table->foreign('viaje_id')->references('id')->on('viajes');
@@ -43,5 +43,9 @@ class CreateReservasTable extends Migration
     public function down()
     {
         Schema::drop('reservas');
+        schema::table('reservas', function (Blueprint $table){
+            $table->dropForeign('reservas_viaje_id_foreign');
+            $table->dropForeign('reservas_cliente_id_foreign');
+        })
     }
 }

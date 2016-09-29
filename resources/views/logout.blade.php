@@ -4,7 +4,7 @@
 
 <div class="callout primary">
   <div class="row column">
-    <h3>Log out</h3>
+    <h3>Sesión finalizada</h3>
   </div>
 </div>
 <div class="large-6 columns">

@@ -6,7 +6,7 @@
 
 <div class="callout primary">
   <div class="row column">
-    <h3>Login</h3>
+    <h3>Acceso</h3>
     <p class="lead">Por favor, introduzca los datos de acceso</p>
   </div>
 </div>
@@ -26,7 +26,7 @@
                     <input type='checkbox' name='remember'> Recordarme
                 </div>
                 <div>
-                    <button class="button" type='submit'>Login</button>
+                    <button class="button" type='submit'>Entrar</button>
                 </div>
             </form>
         </div>    

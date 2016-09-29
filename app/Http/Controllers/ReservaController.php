@@ -27,10 +27,10 @@ class ReservaController extends Controller
 
 
     //Control de acceso a ReservaController de usuarios no permitidos.
-    public function __construct(){
+    /*public function __construct(){
         $this->middleware('auth');
         //$this->middleware('auth', ['except' => 'index']);
-    }
+    }*/
 
 
     /**
@@ -45,7 +45,8 @@ class ReservaController extends Controller
         $reservas = DB::table('reservas')
         ->join('clientes', 'reservas.cliente_id', '=', 'clientes.id')
         ->join('viajes', 'reservas.viaje_id', '=', 'viajes.id')
-        ->select('reservas.*', 'clientes.*', 'viajes.*')
+        ->select('reservas.*', 'clientes.nombre', 'clientes.apellido', 'clientes.alojamiento', 'clientes.numero_habitacion', 
+                 'viajes.dia', 'viajes.salida', 'viajes.sentido', 'viajes.array_plazas_disponibles')
         ->get();
 
         //$viajes = DB::table('viajes')->join('reservas', 'viajes.viaje_id', '=', 'reservas.viaje_id')->select('')->get();
@@ -335,10 +336,23 @@ class ReservaController extends Controller
         $view =  \View::make('reserva.ticket', compact('reservas'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
+
+        //Formato del papel de impresión del ticket
+        $pdf->setPaper('A4');
+
         return $pdf->stream('ticket');
 
-        return view('reserva/ticket', ['reservas' => $reservas]);
+        //return view('reserva/ticket', ['reservas' => $reservas]);
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.

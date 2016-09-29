@@ -23,6 +23,7 @@
     <th>Hora reservada</th>
     <th>Subida</th>
     <th>Bajada</th>
+    <th>Imprimir</th>
 
 
   </tr>
@@ -38,6 +39,16 @@
     <td>{{$reserva->salida}}</td>
     <td>{{$reserva->parada_subida}}</td>
     <td>{{$reserva->parada_bajada}}</td>
+    <td>
+      <!-- <form method="GET" action="http://<?php //echo Request::getHost()?>/reserva/imprimir/{{$reserva->id}}">
+
+        <i class="fi-print size-24"><input value="Print" class="" type="submit"></i>  
+
+      </form> -->
+
+      <a class="print-icon" href="http://<?php echo Request::getHost()?>/reserva/imprimir/{{$reserva->id}}" target="_blank"><i class="fi-print size-24"></i></a>
+
+    </td>
 
   </tr>	
 
