@@ -16,7 +16,7 @@
 <table>
   <tr>
     <th>Nombre</th>
-    <th>Apellidos</th>
+    <th>Plazas reservadas</th>
     <th>Alojamiento</th>
     <th>Habitación</th>
     <th>Dia reservado</th>
@@ -32,7 +32,7 @@
 
   <tr>
     <td>{{$reserva->nombre}}</td>
-    <td>{{$reserva->apellido}}</td>
+    <td>{{$reserva->numero_plazas}}</td>
     <td>{{$reserva->alojamiento}}</td>
     <td>{{$reserva->numero_habitacion}}</td>
     <td>{{$reserva->dia}}</td>

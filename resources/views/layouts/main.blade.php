@@ -24,6 +24,7 @@
 <h5>Menu Principal</h5>
 <ul class="side-nav">
 	<li><a href="/">Inicio</a></li>
+
 	@if(!Auth::guest())
 		<li><a href="/reserva/create">Crear Reserva</a></li>
 	@endif
@@ -33,9 +34,12 @@
 	@if(Auth::guest())
 		<li><a href="/auth/login">Acceso</a></li>
 	@endif
-	@if(Auth::check() && (Auth::user()->name == 'admin'))
-		<li><a href="/auth/register">Registro</a></li>
+	
+	@if(Auth::check() && (Auth::user()->name == 'admin')) 
+			
 	@endif
+	<li><a href="/auth/register">Registro</a></li>
+
 	@if(!Auth::guest())	
 		<li><a href="/viaje/buscar">Buscar Ruta</a></li>
 		<li><a href="/auth/logout">Salir</a></li>
@@ -71,6 +75,7 @@
   $( function() {
 
 		$('#dia_reservado').datepicker({dateFormat: 'dd-mm-yy'});
+		$('#dia_reservado_vuelta').datepicker({dateFormat: 'dd-mm-yy'});
   });
 </script>
 </body>

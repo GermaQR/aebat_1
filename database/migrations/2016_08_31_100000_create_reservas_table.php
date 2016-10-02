@@ -15,6 +15,7 @@ class CreateReservasTable extends Migration
         Schema::create('reservas', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->smallInteger('numero_plazas');
             $table->string('parada_subida');
             $table->string('parada_bajada');
 
@@ -46,6 +47,6 @@ class CreateReservasTable extends Migration
         schema::table('reservas', function (Blueprint $table){
             $table->dropForeign('reservas_viaje_id_foreign');
             $table->dropForeign('reservas_cliente_id_foreign');
-        })
+        });
     }
 }

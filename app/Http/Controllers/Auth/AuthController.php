@@ -86,16 +86,16 @@ class AuthController extends Controller
     //realizar un nuevo registro está autorizado (es el usuario 'admin').
     public function getRegister()
     {
-      
-        if ( Auth::check() && (Auth::user()->name == 'admin')) {
+        
+        //if ( Auth::check() && (Auth::user()->name == 'admin')) {
 
             return $this->showRegistrationForm();
 
-        } else {
+        //} else {
 
-            $message = 'Acción no autorizada';
-             return view('reserva/message', ['mensaje' => $message]);
-        }
+            //$message = 'Acción no autorizada';
+             //return view('reserva/message', ['mensaje' => $message]);
+        //}
 
     }
 
