@@ -15,11 +15,12 @@ Route::get('/', function () {
     return view('home');
 });
 
-
-
+Route::get('reserva/show/{id1}/{id2}', 'ReservaController@show')->name('show');
+Route::get('reserva/busqueda', 'ReservaController@buscarReserva');
+Route::post('reserva/resultado', 'ReservaController@resultado');
 Route::resource('reserva', 'ReservaController');
 Route::get('reserva/show/{id}', 'ReservaController@show');
-Route::get('reserva/imprimir/{id}', 'ReservaController@imprimir');
+Route::get('reserva/imprimir/{id1}/{id2}', 'ReservaController@imprimir');
 Route::get('viaje/buscar', 'ViajeController@buscar');
 Route::post('viaje/resultado', 'ViajeController@resultado');
 //Route::get('reserva/show/{id}',array('as'=>'htmltopdfview','uses'=>'ReservaController@show'));

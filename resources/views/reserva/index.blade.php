@@ -46,7 +46,7 @@
 
       </form> -->
 
-      <a class="print-icon" href="http://<?php echo Request::getHost()?>/reserva/imprimir/{{$reserva->id}}" target="_blank"><i class="fi-print size-24"></i></a>
+      <a class="print-icon" href="http://<?php echo Request::getHost()?>/reserva/imprimir/{{$reserva->id}}/0" target="_blank"><i class="fi-print size-24"></i></a>
 
     </td>
 
@@ -55,10 +55,6 @@
   <?php endforeach; ?>
 
 </table> 
-
-
-
-
 
 </div>
 @stop

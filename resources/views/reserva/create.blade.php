@@ -39,9 +39,15 @@
             {!! Form::text('name', $value = null, $attributes = ['placeholder' => 'Alojamiento', 'name' => 'alojamiento']) !!}
         </div>
 
-        <div class="large-4 columns">
+        <div class="large-3 columns">
             {!! Form::label('numero_habitacion', 'Número de habitación') !!}
             {!! Form::text('name', $value = null, $attributes = ['placeholder' => 'Número de Habitación', 'name' => 'numero_habitacion']) !!}
+
+        </div>
+
+        <div class="large-3 columns">
+            {!! Form::label('precio', 'Precio del viaje') !!}
+            {!! Form::text('name', $value = null, $attributes = ['placeholder' => '0 ', 'name' => 'precio']) !!}
 
         </div>
 
@@ -93,8 +99,8 @@
 
             <div class="large-3 columns">
 
-                {!! Form::label('horario_reservado', 'Horario reservado de salida') !!}
-                {!! Form::select('horario_reservado', array('0' => '10:00', '1' => '17:00'), '0'); !!}
+                {!! Form::label('horario_reservado_vuelta', 'Horario reservado de salida') !!}
+                {!! Form::select('horario_reservado_vuelta', array('0' => '10:00', '1' => '17:00'), '0'); !!}
             
             </div>
 
@@ -102,14 +108,14 @@
 
             <div class="large-3 columns">
 
-                {!! Form::label('parada_subida', 'Parada de subida') !!}
-                {!! Form::select('parada_subida', array('0' => 'Puerto rico', '1' => 'Arguineguín', '2' => 'Maspalomas', '3' => 'Playa del Inglés'), '0'); !!}
+                {!! Form::label('parada_subida_vuelta', 'Parada de subida') !!}
+                {!! Form::select('parada_subida_vuelta', array('0' => 'Puerto rico', '1' => 'Arguineguín', '2' => 'Maspalomas', '3' => 'Playa del Inglés'), '0'); !!}
             
             </div>
 
             <div class="large-3 columns">
-                {!! Form::label('parada_bajada', 'Parada de bajada') !!}
-                {!! Form::select('parada_bajada', array('0' => 'Puerto rico', '1' => 'Arguineguín', '2' => 'Maspalomas', '3' => 'Playa del Inglés'), '3'); !!}
+                {!! Form::label('parada_bajada_vuelta', 'Parada de bajada') !!}
+                {!! Form::select('parada_bajada_vuelta', array('0' => 'Puerto rico', '1' => 'Arguineguín', '2' => 'Maspalomas', '3' => 'Playa del Inglés'), '3'); !!}
             
             </div>
 
