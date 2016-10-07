@@ -7,7 +7,7 @@
 	<div class="callout primary">
 <div class="row column">
 <h3>Reservas</h3>
-
+<h4>Reservas realizadas por el usuario: {{Auth::user()->name}}</h4>
 </div>
 </div>
 <div class="row small-up-2 medium-up-3 large-up-4">

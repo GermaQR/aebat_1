@@ -78,7 +78,7 @@
         <div class="large-3 columns">
 
             {!! Form::label('parada_subida', 'Parada de subida') !!}
-            {!! Form::select('parada_subida', array('0' => 'Puerto rico', '1' => 'Arguineguín', '2' => 'Maspalomas', '3' => 'Playa del Inglés'), '0'); !!}
+            {!! Form::select('parada_subida', array('0' => 'Puerto Rico', '1' => 'Arguineguín', '2' => 'Maspalomas', '3' => 'Playa del Inglés'), '0'); !!}
         
         </div>
 

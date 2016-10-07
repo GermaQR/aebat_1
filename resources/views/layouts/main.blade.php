@@ -39,6 +39,7 @@
 			
 	@endif
 	<li><a href="/auth/register">Registro</a></li>
+	<li><a href="/reserva/borrar">Borrar Reservas</a></li>
 
 	@if(!Auth::guest())	
 		<li><a href="/viaje/buscar">Buscar Ruta</a></li>
@@ -61,7 +62,7 @@
 @endif -->
 
 @yield('content')
-<hr>
+
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -76,6 +77,7 @@
 
 		$('#dia_reservado').datepicker({dateFormat: 'dd-mm-yy'});
 		$('#dia_reservado_vuelta').datepicker({dateFormat: 'dd-mm-yy'});
+		$('#fecha_borrado').datepicker({dateFormat: 'dd-mm-yy'});
   });
 </script>
 </body>

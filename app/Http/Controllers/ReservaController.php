@@ -14,6 +14,8 @@ use DB;
 
 use PDF;
 
+use App\Reserva;
+
 class ReservaController extends Controller
 {
     //DEfinicion de $array_plazas_disponibles. En cada posición del array se indica el nº de plazas dsiponibles
@@ -43,15 +45,31 @@ class ReservaController extends Controller
     public function index()
     {
 
-        // Busca todas las reservas realizadas por el usuario. 
-        $reservas = DB::table('reservas')
-        ->where('reservas.usuario', '=', Auth::user()->name)
-        ->join('clientes', 'reservas.cliente_id', '=', 'clientes.id')
-        ->join('viajes', 'reservas.viaje_id', '=', 'viajes.id')
-        ->select('reservas.*', 'clientes.nombre', 'clientes.alojamiento', 'clientes.numero_habitacion', 
-                 'viajes.dia', 'viajes.salida', 'viajes.sentido', 'viajes.array_plazas_disponibles')
-        ->orderBy('reservas.id', 'desc')
-        ->get();
+
+        if (Auth::user()->name == 'admin') {
+
+            // Busca todas las reservas existentes, realizadas por todos los usuarios.
+            $reservas = DB::table('reservas')
+            ->join('clientes', 'reservas.cliente_id', '=', 'clientes.id')
+            ->join('viajes', 'reservas.viaje_id', '=', 'viajes.id')
+            ->select('reservas.*', 'clientes.nombre', 'clientes.alojamiento', 'clientes.numero_habitacion', 
+                     'viajes.dia', 'viajes.salida', 'viajes.sentido', 'viajes.array_plazas_disponibles')
+            ->orderBy('reservas.id', 'desc')
+            ->get();
+
+        } else {
+
+            // Busca todas las reservas realizadas por el usuario.
+            $reservas = DB::table('reservas')
+            ->where('reservas.usuario', '=', Auth::user()->name)
+            ->join('clientes', 'reservas.cliente_id', '=', 'clientes.id')
+            ->join('viajes', 'reservas.viaje_id', '=', 'viajes.id')
+            ->select('reservas.*', 'clientes.nombre', 'clientes.alojamiento', 'clientes.numero_habitacion', 
+                     'viajes.dia', 'viajes.salida', 'viajes.sentido', 'viajes.array_plazas_disponibles')
+            ->orderBy('reservas.id', 'desc')
+            ->get();
+
+        }
 
         //$viajes = DB::table('viajes')->join('reservas', 'viajes.viaje_id', '=', 'reservas.viaje_id')->select('')->get();
 
@@ -309,6 +327,105 @@ class ReservaController extends Controller
         return view('reserva/resultado', ['reservas' => $reservas, 'numero_habitacion' => $numero_habitacion]);
 
     }
+
+    
+    /**
+     * Devuelve vista con formulario para borrar reservas.
+     *
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function borrar()
+    {
+        return view ('reserva/borrar');
+    }
+
+
+    /**
+     * Borra reserva de la BBDD.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function borrado(Request $request)
+    {
+        $fecha_borrado = $request->input('fecha_borrado');
+
+        //Conversión de fecha al formado usado por la BBDD.
+        $fecha_borrado_2 = date("Y-m-d", strtotime($fecha_borrado));
+
+
+        $viajes = DB::table('viajes')
+                    ->where('viajes.dia', '<', $fecha_borrado_2)
+                    ->select('viajes.id')
+                    ->get();
+
+
+
+
+
+        foreach ($viajes as $viaje){
+
+
+
+
+            $reservas = DB::table('reservas')
+                        ->where('reservas.viaje_id', '=', $viaje->id)
+                        ->select('reservas.cliente_id', 'reservas.id')
+                        ->get();
+    
+            //Se borran los registros de la tabla 'reservas' con el valor de 'viaje_id' igual a '$viaje->id'.  
+            DB::table('reservas')->where('reservas.viaje_id', '=', $viaje->id)->delete();
+            //echo 'Borrado de reserva con id '.$reserva->id.'<br>';  
+ 
+
+            foreach($reservas as $reserva){
+
+                $clientes = DB::table('clientes')
+                            ->where('clientes.id', '=', $reserva->cliente_id)
+                            ->select('clientes.id')
+                            ->get();
+
+                foreach ($clientes as $cliente){
+                    $otras_reservas = DB::table('reservas')
+                                        ->where('reservas.cliente_id','=', $cliente->id)
+                                        ->count();
+
+
+  
+
+                    //echo 'numero de reservas del cliente con id '.$cliente->id.': '.$otras_reservas.'<br>';
+
+                    if ($otras_reservas == 0){
+
+
+                        //Se borra el registro para el cliente con 'id' igual '$cliente->id'.
+                        DB::table('clientes')->where('clientes.id', '=', $cliente->id)->delete();
+                        //echo 'Borrado de cliente con id '.$cliente->id.'<br>';
+                    }
+
+
+                }
+
+
+
+            }
+
+
+
+        }
+
+        //Se borran los registros de la tabla 'viajes' con el valor de 'dia' menor que '$fecha_borrado_2'.            
+        DB::table('viajes')->where('viajes.dia', '<', $fecha_borrado_2)->delete();
+        //echo 'Borrado de viaje con id '.$viaje->id.'<br>';
+         //DB::table('viajes')->where('viajes.id', '=', 1)->delete();
+
+        $message = 'Se han eliminado las reservas seleccionadas';
+        return view('reserva/message', ['mensaje' => $message]);
+
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

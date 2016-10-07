@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::get('reserva/show/{id1}/{id2}', 'ReservaController@show')->name('show');
 Route::get('reserva/busqueda', 'ReservaController@buscarReserva');
 Route::post('reserva/resultado', 'ReservaController@resultado');
+Route::get('reserva/borrar', 'ReservaController@borrar');
+Route::post('reserva/borrado', 'ReservaController@borrado');
 Route::resource('reserva', 'ReservaController');
 Route::get('reserva/show/{id}', 'ReservaController@show');
 Route::get('reserva/imprimir/{id1}/{id2}', 'ReservaController@imprimir');
