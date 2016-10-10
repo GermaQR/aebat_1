@@ -87,19 +87,19 @@ class AuthController extends Controller
     public function getRegister()
     {
         
-        //if ( Auth::check() && (Auth::user()->name == 'admin')) {
+        if ( Auth::check() && (Auth::user()->name == 'admin')) {
 
             return $this->showRegistrationForm();
 
-        //} else {
+        } else {
 
-            //$message = 'Acción no autorizada';
-             //return view('reserva/message', ['mensaje' => $message]);
-        //}
+            $message = 'Acción no autorizada';
+            return view('reserva/message', ['mensaje' => $message]);
+        }
 
     }
 
-    /*public function postRegister(Request $request)
+    public function postRegister(Request $request)
     {
         if ( Auth::user()->name != 'admin') {
 
@@ -108,8 +108,9 @@ class AuthController extends Controller
         } else {
 
             return $this->register($request);
+        }
         
-    }*/
+    }
 
 
 }

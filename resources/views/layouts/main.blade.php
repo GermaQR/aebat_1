@@ -36,10 +36,10 @@
 	@endif
 	
 	@if(Auth::check() && (Auth::user()->name == 'admin')) 
-			
+		<li><a href="/reserva/borrar">Borrar Reservas</a></li>
+		<li><a href="/auth/register">Registro</a></li>
 	@endif
-	<li><a href="/auth/register">Registro</a></li>
-	<li><a href="/reserva/borrar">Borrar Reservas</a></li>
+
 
 	@if(!Auth::guest())	
 		<li><a href="/viaje/buscar">Buscar Ruta</a></li>

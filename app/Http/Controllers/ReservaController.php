@@ -33,7 +33,7 @@ class ReservaController extends Controller
     //Control de acceso a ReservaController de usuarios no autorizados.
     public function __construct(){
         $this->middleware('auth');
-        //$this->middleware('auth', ['except' => 'index']);
+        $this->middleware('auth', ['except' => 'index']);
     }
 
 
@@ -337,7 +337,13 @@ class ReservaController extends Controller
      */
     public function borrar()
     {
-        return view ('reserva/borrar');
+        if (Auth::user()->name == 'admin'){
+            return view ('reserva/borrar');
+        } else {
+            $message = 'Acción no autorizada';
+            return view('reserva/message', ['mensaje' => $message]);
+        }
+
     }
 
 
